@@ -38,14 +38,7 @@ if "token" not in st.session_state:
     
     # Place the authorize button in the middle column
     with col2:
-        st.markdown("""
-        <div style='text-align: center; margin-top: 100px;'>
-            {}
-        </div>
-        """.format(oauth2.authorize_button("Connect", scope="openid", pkce="S256", redirect_uri=redirect_uri)), unsafe_allow_html=True)
-
-    # Check if the result contains a token
-    result = st.session_state.get("result")
+        result = oauth2.authorize_button("Connect", scope="openid", pkce="S256", redirect_uri=redirect_uri)
 
     if result and "token" in result:
         # If authorization successful, save token in session state
