@@ -11,8 +11,12 @@ UTC=timezone.utc
 # Init configuration
 utils.retrieve_config_from_agent()
 
-st.set_page_config(page_title="Amazon Q Business Custom UI") #HTML title
-st.title("Amazon Q Business Custom UI") #page title
+st.set_page_config(page_title="Luxe Home Renovations Custom Q Chat") #HTML title
+st.title("Luxe Home Renovations Custom Q Chat") #page title
+
+col1, col2, col3 = st.columns([1, 2, 1])
+with col2:
+    st.title("Luxe Home Renovations Custom Q Chat") #page title
 
 # Define a function to clear the chat history
 def clear_chat_history():
@@ -29,7 +33,14 @@ oauth2 = utils.configure_oauth_component()
 if "token" not in st.session_state:
     # If not, show authorize button
     redirect_uri = f"https://{utils.OAUTH_CONFIG['ExternalDns']}/component/streamlit_oauth.authorize_button/index.html"
-    result = oauth2.authorize_button("Connect with Cognito",scope="openid", pkce="S256", redirect_uri=redirect_uri)
+    
+    # Create three columns with a ratio of 1:2:1
+    col1, col2, col3 = st.columns([1, 2, 1])
+    
+    # Place the authorize button in the middle column
+    with col2:
+        result = oauth2.authorize_button("Connect", scope="openid", pkce="S256", redirect_uri=redirect_uri)
+        
     if result and "token" in result:
         # If authorization successful, save token in session state
         st.session_state.token = result.get("token")
