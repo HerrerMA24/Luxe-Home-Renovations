@@ -12,11 +12,10 @@ UTC=timezone.utc
 utils.retrieve_config_from_agent()
 
 st.set_page_config(page_title="Luxe Home Renovations Custom Q Chat") #HTML title
-st.title("Luxe Home Renovations Custom Q Chat") #page title
 
 col1, col2, col3 = st.columns([1, 2, 1])
 with col2:
-    st.title("Luxe Home Renovations Custom Q Chat") #page title
+    st.title("Luxe Home Renovations") #page title
 
 # Define a function to clear the chat history
 def clear_chat_history():
@@ -40,7 +39,7 @@ if "token" not in st.session_state:
     # Place the authorize button in the middle column
     with col2:
         result = oauth2.authorize_button("Connect", scope="openid", pkce="S256", redirect_uri=redirect_uri)
-        
+
     if result and "token" in result:
         # If authorization successful, save token in session state
         st.session_state.token = result.get("token")
