@@ -1,5 +1,5 @@
 from datetime import datetime, timedelta, timezone
-
+import os
 import jwt
 import jwt.algorithms
 import streamlit as st
@@ -24,7 +24,10 @@ def clear_chat_history():
     st.session_state["parentMessageId"] = ""
 
 def navigation_bar():
-    with open("style.css") as f:
+    script_dir = os.path.dirname(os.path.abspath(__file__))
+    style_path = os.path.join(script_dir, "style.css")
+
+    with open(style_path) as f:
         st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
 
     with st.container():
