@@ -27,18 +27,22 @@ def clear_chat_history():
     st.session_state["conversationId"] = ""
     st.session_state["parentMessageId"] = ""
 
+# Define the navigation bar function
+def navigation_bar():
+    col1, col2, col3 = st.columns(3)
+    with col1:
+        st.button("Home")
+    with col2:
+        st.button("Profile")
+    with col3:
+        st.button("About")
 
 oauth2 = utils.configure_oauth_component()
 if "token" not in st.session_state:
     # If not, show authorize button
     redirect_uri = f"https://{utils.OAUTH_CONFIG['ExternalDns']}/component/streamlit_oauth.authorize_button/index.html"
     
-    # Create three columns with a ratio of 1:2:1
-    col1, col2, col3 = st.columns([1, 2, 1])
-    
-    # Place the authorize button in the middle column
-    with col2:
-        result = oauth2.authorize_button("Connect", scope="openid", pkce="S256", redirect_uri=redirect_uri)
+    result = oauth2.authorize_button("Authenticate",scope="openid", pkce="S256", redirect_uri=redirect_uri)
 
     if result and "token" in result:
         # If authorization successful, save token in session state
@@ -142,3 +146,18 @@ else:
             feedback_type="thumbs",
             optional_text_label="[Optional] Please provide an explanation",
         )
+
+def main():
+    # Set the background color
+    page_bg_color = """
+        <style>
+        body {
+            background-color: #F5F5F5; /* Light gray color */
+        }
+        </style>
+    """
+    st.markdown(page_bg_color, unsafe_allow_html=True)
+    navigation_bar()
+
+if __name__ == "__main__":
+    main()
