@@ -31,16 +31,6 @@ def clear_chat_history():
 def navigation_bar():
     page = st_navbar(["Home", "Profile", "About"])
     
-    if page == "Home":
-        # Add your code for the Home page here
-        st.write("Home Page")
-    elif page == "Profile":
-        # Add your code for the Profile page here
-        st.write("Profile Page")
-    elif page == "About":
-        # Add your code for the About page here
-        st.write("About Page")
-
 oauth2 = utils.configure_oauth_component()
 if "token" not in st.session_state:
     # If not, show authorize button
