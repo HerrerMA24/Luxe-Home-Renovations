@@ -142,15 +142,6 @@ else:
         )
 
 def main():
-    # Set the background color
-    page_bg_color = """
-        <style>
-        body {
-            background-color: #F5F5F5; /* Light gray color */
-        }
-        </style>
-    """
-    st.markdown(page_bg_color, unsafe_allow_html=True)
     navigation_bar()
 
 if __name__ == "__main__":
