@@ -7,6 +7,9 @@ from streamlit_feedback import streamlit_feedback
 
 UTC = timezone.utc
 
+# Set the page configuration
+st.set_page_config(page_title="Luxe Home Renovations Custom Q Chat")
+
 # Init configuration
 utils.retrieve_config_from_agent()
 
@@ -38,17 +41,25 @@ def navigation_bar():
     if page == "Home":
         home_page()
     elif page == "Profile":
-        st.write("Profile Page Content")
+        col1, col2, col3 = st.columns([1, 2, 1])
+        with col2:
+            st.write("Profile Page Content")
     elif page == "About":
-        st.write("About Page Content")
+        col1, col2, col3 = st.columns([1, 2, 1])
+        with col2:
+            st.write("About Page Content")
     elif page == "Authenticate":
-        authenticate()
+        col1, col2, col3 = st.columns([1, 2, 1])
+        with col2:
+            authenticate()
 
 def authenticate():
     oauth2 = utils.configure_oauth_component()
     if "token" not in st.session_state:
         redirect_uri = f"https://{utils.OAUTH_CONFIG['ExternalDns']}/component/streamlit_oauth.authorize_button/index.html"
-        result = oauth2.authorize_button("Authenticate", scope="openid", pkce="S256", redirect_uri=redirect_uri)
+        col1, col2, col3 = st.columns([1, 2, 1])
+        with col2:
+            result = oauth2.authorize_button("Authenticate", scope="openid", pkce="S256", redirect_uri=redirect_uri)
 
         if result and "token" in result:
             st.session_state.token = result.get("token")
@@ -79,7 +90,6 @@ def authenticate():
         st.write("Welcome: ", user_email)
 
 def home_page():
-    st.set_page_config(page_title="Luxe Home Renovations Custom Q Chat")
 
     # Define a function to clear the chat history
     def clear_chat_history():
