@@ -43,9 +43,9 @@ styles = {
 }
 
 def navigation_bar():
-    page = st_navbar(pages, styles=styles, logo_path=logo_path)  # Added logo_path
+    page = st_navbar(pages, styles=styles, logo_path=logo_path, logo_click_url="Chat")  # Added logo_path
 
-    if page == "Chat":
+    if page == "Chat" or page is None:
         if "token" not in st.session_state:
             # Display content for the homepage before authentication
             st.write("Welcome to Luxe Home Renovations!")
@@ -61,17 +61,13 @@ def navigation_bar():
         with col2:
             st.write("About Page Content")
     elif page == "Authenticate":
-        col1, col2, col3 = st.columns([1, 2, 1])
-        with col2:
             authenticate()
 
 def authenticate():
     oauth2 = utils.configure_oauth_component()
     if "token" not in st.session_state:
         redirect_uri = f"https://{utils.OAUTH_CONFIG['ExternalDns']}/component/streamlit_oauth.authorize_button/index.html"
-        col1, col2, col3 = st.columns([1, 2, 1])
-        with col2:
-            result = oauth2.authorize_button("Authenticate", scope="openid", pkce="S256", redirect_uri=redirect_uri)
+        result = oauth2.authorize_button("Authenticate", scope="openid", pkce="S256", redirect_uri=redirect_uri)
 
         if result and "token" in result:
             st.session_state.token = result.get("token")
