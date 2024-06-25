@@ -14,7 +14,7 @@ st.set_page_config(page_title="Luxe Home Renovations Custom Q Chat")
 # Init configuration
 utils.retrieve_config_from_agent()
 
-pages = ["Home", "Profile", "About", "Authenticate"]
+pages = ["Chat", "Profile", "About", "Authenticate"]
 parent_dir = os.path.dirname(os.path.abspath(__file__))  # Get the parent directory
 logo_path = os.path.join(parent_dir, "hammer-svgrepo-com.svg")  # Set the logo path
 
@@ -45,8 +45,13 @@ styles = {
 def navigation_bar():
     page = st_navbar(pages, styles=styles, logo_path=logo_path)  # Added logo_path
 
-    if page == "Home":
-        home_page()
+    if page == "Chat":
+        if "token" not in st.session_state:
+            # Display content for the homepage before authentication
+            st.write("Welcome to Luxe Home Renovations!")
+            st.write("Please authenticate to access the chat feature.")
+        else:
+            home_page()
     elif page == "Profile":
         col1, col2, col3 = st.columns([1, 2, 1])
         with col2:
@@ -95,6 +100,8 @@ def authenticate():
                 st.error(f"Error refreshing Identity Center token: {e}. Please reload the page.")
 
         st.write("Welcome: ", user_email)
+
+        home_page()
 
 def home_page():
 
