@@ -43,7 +43,7 @@ styles = {
 }
 
 def navigation_bar():
-    page = st_navbar(pages, styles=styles, logo_path=logo_path, logo_click_url="Chat")  # Added logo_path
+    page = st_navbar(pages, styles=styles, logo_path=logo_path)  # Added logo_path
 
     if page == "Chat" or page is None:
         if "token" not in st.session_state:
