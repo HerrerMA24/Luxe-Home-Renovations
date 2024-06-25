@@ -4,6 +4,7 @@ import streamlit as st
 from streamlit_navigation_bar import st_navbar
 import utils
 from streamlit_feedback import streamlit_feedback
+import os
 
 UTC = timezone.utc
 
@@ -14,6 +15,9 @@ st.set_page_config(page_title="Luxe Home Renovations Custom Q Chat")
 utils.retrieve_config_from_agent()
 
 pages = ["Home", "Profile", "About", "Authenticate"]
+parent_dir = os.path.dirname(os.path.abspath(__file__))  # Get the parent directory
+logo_path = os.path.join(parent_dir, "hammer-svgrepo-com.svg")  # Set the logo path
+
 styles = {
     "nav": {
         "background-color": "rgb(123, 209, 146)",
@@ -33,10 +37,13 @@ styles = {
     "hover": {
         "background-color": "rgba(255, 255, 255, 0.35)",
     },
+    "img": {  # Added styles for the logo image
+        "padding-right": "14px",
+    },
 }
 
 def navigation_bar():
-    page = st_navbar(pages, styles=styles)
+    page = st_navbar(pages, styles=styles, logo_path=logo_path)  # Added logo_path
 
     if page == "Home":
         home_page()
